@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.15/howler.min.js" integrity="sha256-xBcR4i4ye4rtowH50D55ALv0fUWqFpS5YjHfer+rFvY=" crossorigin="anonymous"></script>
+    <script src="dist/paper-full.min.js"></script>
+
+    <script type="text/paperscript" canvas="myCanvas">
+        var sounds = ["bubbles.mp3",     
+            "flash-2.mp3", 
+            "piston-2.mp3", 
+            "splits.mp3",    
+            "veil.mp3","clay.mp3",       
+            "flash-3.mp3",  
+            "piston-3.mp3", 
+            "squiggle.mp3",   
+            "wipe.mp3","confetti.mp3",     
+            "glimmer.mp3",  
+            "prism-1.mp3",  
+            "strike.mp3",     
+            "zig-zag.mp3","corona.mp3",       
+            "moon.mp3",     
+            "prism-2.mp3",  
+            "suspension.mp3","dotted-spiral.mp3", 
+            "prism-3.mp3",  
+            "timer.mp3","flash-1.mp3",       
+            "piston-1.mp3",
+            "ufo.mp3"];
+        function getRandomSound() {
+            return "sounds/" + sounds[getRandomInt(0, sounds.length)];
+        }
+
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        function getRandomRGB() {
+            var red = getRandomInt(0, 256);
+            var green = getRandomInt(0, 256);
+            var blue = getRandomInt(0, 256);
+
+            return "rgb(" +  red + ", " + green + ", " +  blue + ")";
+        }
+
+        var circles = [];
+
+        function onKeyDown(event) {
+            var radius = 100;
+            var xCord = getRandomInt(radius, view.size.width);
+            var yCord = getRandomInt(radius, view.size.height);
+
+            var circle = new Path.Circle(new Point(xCord, yCord), radius);
+            circle.fillColor = getRandomRGB();
+            circles.push(circle);
+
+            var sound = new Howl({
+                src: [getRandomSound()]
+              });
+           sound.play();
+        }
+
+        function onFrame(event) {
+            for (var i = 0; i < circles.length; i++) {
+                var circle = circles[i];
+                
+                if (circle.area <= 0) {
+                    console.log("blaaa");
+                } else {
+                    circle.fillColor.hue += 1;
+                    circle.scale(0.99);
+                }
+            }
+        }
+
+    </script>
+
+    <style>
+        body {
+            background: white;
+            width: 100%;
+            height: 100%;
+
+        }
+
+        html {
+            height: 100%;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" resize></canvas>        
+</body>
+</html>
