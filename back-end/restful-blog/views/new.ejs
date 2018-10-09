@@ -1,0 +1,22 @@
+<% include partials/header %>
+
+<form class="ui form container segment main"  style="margin-top: 70px" method="POST" action="/blogs">
+    <div class="field">
+        <label>Blog Title</label>
+        <input type="text" name="blog[title]">
+    </div>
+
+    <div class="field">
+        <label>Image Link</label>
+        <input type="text" name="blog[imageUrl]">
+    </div>
+
+    <div class="field">
+        <label>Blog Body</label>
+        <textarea name="blog[body]"></textarea>
+    </div>
+
+    <button type="submit" class="ui button primary">Submit</button>
+</form>
+
+<% include partials/footer %>

@@ -1,0 +1,18 @@
+<% include partials/header  %>
+
+<div class="ui container segment main">
+
+    <% blogs.forEach((post) => { %>
+        <div class="ui center aligned container segment">
+            <img class="ui image rounded centered large"src="<%=post.imageUrl%>">
+            <h1><%=post.title%></h1>
+            <p><%=post.body.substring(0, 70)%>...</p>
+            <a class="ui floated basic violet button" href="/blogs/<%= post._id %>">
+                Read More
+            </a>
+        </div>
+    <% }); %>
+        
+</div>
+        
+<% include partials/footer  %>
