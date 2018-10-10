@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 mongoose.connect("mongodb://localhost/yelp_camp");
 
 var Campground = require("./models/campground");
+var Comment = require("./models/comments");
 
 fillDB();
 
@@ -21,12 +22,12 @@ app.get("/", function(req, res) {
 
 app.get("/campgrounds", function(req, res) {
     Campground.find({}, (err, results) => {
-        res.render("campgrounds", {campgrounds: results});
+        res.render("campgrounds/campgrounds", {campgrounds: results});
     })
 });
 
 app.get("/campgrounds/new", function(req, res) {
-    res.render("newcampground");
+    res.render("campgrounds/newcampground");
 });
 
 app.post("/campgrounds", function(req, res) {
@@ -50,7 +51,48 @@ app.get("/campgrounds/:id", function(req, res) {
             console.log(err);
             res.redirect("/");
         } else {
-            res.render("show", {campground: result});
+            res.render("campgrounds/show", {campground: result});
+        }
+    })
+});
+
+app.get("/campgrounds/:id/comments/new", function(req, res) {
+    var campgroundId = req.params.id;
+
+    Campground.findById(campgroundId, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.redirect("/campgrounds");
+        } else {
+            res.render("comments/newcomment", {campground: result});
+        }
+    })
+});
+
+
+app.post("/campgrounds/:id/comments", function(req, res) {
+    var campgroundId = req.params.id;
+
+    var commentAuthor = req.body.author;
+    var commentText = req.body.text;
+
+    var newComment = {author: commentAuthor, text: commentText};
+
+    Campground.findById(campgroundId, (err, foundCampground) => {
+        if (err) {
+            console.log(err);
+            res.redirect("/campgrounds");
+        } else {
+            Comment.create(newComment, (err, createdComment) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    foundCampground.comments.push(createdComment);
+                    foundCampground.save();
+
+                    res.redirect("/campgrounds/" + campgroundId);
+                }
+            });
         }
     })
 });
