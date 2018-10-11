@@ -20,6 +20,24 @@
             
             <div class="collapse navbar-collapse float-right" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto float-right">
+                    <% if (currentUser) { %>
+                        <li>
+                            <a class="nav-link">
+                                Signed in as <%= currentUser.username %>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                    <% } %>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/campgrounds">Campgrounds</a>
                     </li>
