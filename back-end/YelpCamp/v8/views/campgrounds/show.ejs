@@ -17,7 +17,9 @@
                 <div class="card-body">
                     <h5 class="card-title"><span class="float-right">$9.00/Night</span><%=campground.name%></h5>
                     <p class="card-text"><%=campground.description%></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">
+                        <em>Submitted by <%=campground.author.username%></em>
+                    </p>
                 </div>
             </div>
 
@@ -28,7 +30,7 @@
                 <div class="comments">
                     <% campground.comments.forEach((comment) => { %>
                         <div>
-                            <strong><%= comment.author %></strong>
+                            <strong><%= comment.author.username %></strong>
                             <span class="float-right">10 days ago</span>
                             <p><%= comment.text %></p>
                         </div>

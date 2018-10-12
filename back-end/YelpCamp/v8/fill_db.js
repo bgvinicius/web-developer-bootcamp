@@ -64,22 +64,22 @@ module.exports = function() {
         }
     ];
     
-    Campground.insertMany(campgrounds, (err, createdCampgrounds) => {
-        if (err) {
-            console.log("An error occurred while inserting to the database.");
-            console.log(err);
-        } else {
-            console.log("The data was successfully inserted to the database.");
-            createdCampgrounds.forEach((createdCampground) => {
-                Comment.create({text: faker.lorem.sentence(), author: faker.name.firstName()}, (err, result) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        createdCampground.comments.push(result);
-                        createdCampground.save();
-                    }
-                });
-            });
-        }
-    });   
+    // Campground.insertMany(campgrounds, (err, createdCampgrounds) => {
+    //     if (err) {
+    //         console.log("An error occurred while inserting to the database.");
+    //         console.log(err);
+    //     } else {
+    //         console.log("The data was successfully inserted to the database.");
+    //         createdCampgrounds.forEach((createdCampground) => {
+    //             Comment.create({text: faker.lorem.sentence(), author: faker.name.firstName()}, (err, result) => {
+    //                 if (err) {
+    //                     console.log(err);
+    //                 } else {
+    //                     createdCampground.comments.push(result);
+    //                     createdCampground.save();
+    //                 }
+    //             });
+    //         });
+    //     }
+    // });   
 }
