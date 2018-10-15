@@ -1,0 +1,11 @@
+.card {
+    margin-bottom: 20px;
+}
+
+.comments {
+    margin-top: 25px;
+}
+
+.delete-form {
+    display: inline;
+}
