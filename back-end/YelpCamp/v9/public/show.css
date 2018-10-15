@@ -5,3 +5,7 @@
 .comments {
     margin-top: 25px;
 }
+
+.delete-form {
+    display: inline;
+}
