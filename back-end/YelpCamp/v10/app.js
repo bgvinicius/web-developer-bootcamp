@@ -4,6 +4,7 @@ const express               = require("express"),
       mongoose              = require("mongoose"),
       expressSession        = require("express-session"),
       methodOverride        = require("method-override"),
+      flash                 = require("connect-flash"),
       passport              = require("passport"),
       LocalStrategy         = require("passport-local"),
       passportLocalMongoose = require("passport-local-mongoose"),
@@ -15,6 +16,8 @@ const commentRoutes    = require("./routes/comments"),
       indexRoutes      = require("./routes/index");
 
 app.use(methodOverride("_method"));
+
+app.use(flash());
 
 // express configs
 app.set("view engine", "ejs");
@@ -41,6 +44,8 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 

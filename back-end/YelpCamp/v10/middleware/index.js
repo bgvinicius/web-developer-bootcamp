@@ -6,6 +6,7 @@ function isLoggedIn(req, res, next) {
         return next();
     }
 
+    req.flash("error", "Please, log in buddy");
     res.redirect("/login");
 }
 
